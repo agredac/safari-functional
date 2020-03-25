@@ -1,11 +1,14 @@
 package student;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@FunctionalInterface
 interface StudentCriterion {
   boolean test(Student s);
+//  boolean bad();
 }
 
 class IsSmart implements StudentCriterion {
@@ -70,7 +73,42 @@ public class School {
             return s.getGpa() < 3;
           }
         }));
+//    showAll(getByCriterion(roster,
+//        /*new StudentCriterion()*/ /*{*/
+//          /*public boolean test*/(Student s) -> {
+//            return s.getGpa() < 3;
+//          }
+//        /*}*/));
+    showAll(getByCriterion(roster,
+        (Student s) -> { // "Lambda Expression"
+          return s.getGpa() < 3;
+        }
+    ));
 
+    /*Object*/ StudentCriterion o = (Student s) -> {
+      return s.getCourses().size() < 3;
+    };
+
+    Class<?> cl = o.getClass();
+    System.out.println("Class of the lambda is " + cl.getName());
+    Method [] methods = cl.getMethods();
+    for (Method m : methods) {
+      System.out.println("> " + m);
+    }
+
+    showAll(getByCriterion(roster,
+        s -> { // all argument types, or none of them
+          return s.getGpa() < 3;
+        }
+    ));
+
+    StudentCriterion sc1 = s -> {
+      return s.getGpa() < 3;
+    };
+
+    // with curly braces "Block Lambda"
+    // without curly braces "Expression Lambda"
+    Object obj = (StudentCriterion)(s -> s.getGpa() < 3);
 
   }
 }

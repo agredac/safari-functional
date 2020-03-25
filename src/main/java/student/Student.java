@@ -29,6 +29,12 @@ public class Student {
     return courses;
   }
 
+  public static StudentCriterion getSmartCriterion() {
+    return s -> {
+      return s.getGpa() < 3;
+    };
+  }
+
   @Override
   public String toString() {
     return "Student{" +
