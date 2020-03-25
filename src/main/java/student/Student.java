@@ -9,7 +9,7 @@ public class Student {
   private List<String> courses;
 
   private Student(){}
-  private static Student of(String name, double gpa, String ... courses) {
+  public static Student of(String name, double gpa, String ... courses) {
     Student self = new Student();
     self.name = name;
     self.gpa = gpa;
