@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @FunctionalInterface
-interface StudentCriterion {
+interface StudentCriterion { // => Predicate<Student>
   boolean test(Student s);
 //  boolean bad();
 }
