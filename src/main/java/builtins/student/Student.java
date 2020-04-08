@@ -30,9 +30,11 @@ public class Student {
     return courses;
   }
 
-  public static Predicate<Student> getSmartCriterion() {
+  public static Predicate<Student> getUnSmartCriterion(
+      /*final*/ double threshold) {
+//    threshold++;
     return s -> {
-      return s.getGpa() < 3;
+      return s.gpa < threshold; // closure
     };
   }
 

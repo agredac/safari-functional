@@ -10,8 +10,13 @@ import java.util.function.Predicate;
 
 public class UseSuperIterable {
   public static <E, F> void complexProcess(List<E> data,
-      Predicate<E> p, Function<E, F> f, Consumer<F> c) {
+                                           Predicate<E> p, Function<E, F> f, Consumer<F> c) {
     //...
+  }
+
+  public static boolean isInterestingStudent(
+      Student s, Predicate<Student> p) {
+    return p.test(s);
   }
 
   public static void main(String[] args) {
@@ -37,5 +42,24 @@ public class UseSuperIterable {
     rosterIter
         .flatMap(s -> new SuperIterable(s.getCourses()))
         .forEach(s -> System.out.println(s));
+
+    Function<Student, SuperIterable<String>> extractStudentCoursePairings =
+        s -> new SuperIterable(s.getCourses())
+            .map(c -> s.getName() + " takes " + c);
+
+    rosterIter
+        .flatMap(extractStudentCoursePairings)
+        .forEach(s -> System.out.println(s));
+
+    rosterIter
+        .filter(Student.getUnSmartCriterion(3.5))
+        .forEach(s -> System.out.println(s));
+
+    Student f = roster.get(0);
+
+    // HOW NOT TO USE LAMBDAS!!!
+//    if (((Predicate<Student>)s -> s.getGpa() > 3).test(f)) {}
+//    if (isInterestingStudent(f, s -> s.getGpa() > 3)) {}
+
   }
 }

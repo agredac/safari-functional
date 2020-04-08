@@ -29,6 +29,13 @@ public class Student {
     return courses;
   }
 
+  public Student changeGrade(double gpa) {
+    Student self = new Student();
+    self.name = this.name;
+    self.gpa = gpa;
+    self.courses = this.courses;
+    return self;
+  }
   public static StudentCriterion getSmartCriterion() {
     return s -> {
       return s.getGpa() < 3;
