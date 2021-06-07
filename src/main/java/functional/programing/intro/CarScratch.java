@@ -12,6 +12,31 @@ class PassengerCountOrder implements Comparator<Car> {
     }
 }
 
+interface CarCriterion{
+    boolean test(Car c);
+}
+
+class RedCarCriterion implements CarCriterion{
+
+    @Override
+    public boolean test(Car c) {
+        return c.getColor().equals("Red");
+    }
+}
+
+class GasLevelCarCriterion implements CarCriterion {
+    private final int threshold;
+
+    public GasLevelCarCriterion(int threshold){
+        this.threshold = threshold;
+    }
+
+    @Override
+    public boolean test(Car c) {
+        return c.getGasLevel() >= threshold;
+    }
+}
+
 public class CarScratch {
 
     public static <E> void showAll(List<Car> lc) {
@@ -21,48 +46,15 @@ public class CarScratch {
         System.out.println("-------------------------------------");
     }
 
-    public static List<Car> getRedCars(List<Car> in) {
 
+
+    public static List<Car> getCarsByCriterion(Iterable<Car> in, CarCriterion criterion) {
         List<Car> out = new ArrayList<>();
-
         for (Car car : in) {
-
-            if (car.getColor().equals("Red"))
+            if (criterion.test(car))
                 out.add(car);
         }
-
         return out;
-
-    }
-
-
-    public static List<Car> getColoredCars(Iterable<Car> in, String color) {
-
-        List<Car> out = new ArrayList<>();
-
-        for (Car car : in) {
-
-            if (car.getColor().equals(color))
-                out.add(car);
-        }
-
-        return out;
-
-    }
-
-
-    public static List<Car> getCarsByGasLevel(Iterable<Car> in, int gasLevel) {
-
-        List<Car> out = new ArrayList<>();
-
-        for (Car car : in) {
-
-            if (car.getGasLevel() >= gasLevel)
-                out.add(car);
-        }
-
-        return out;
-
     }
 
 
@@ -75,9 +67,11 @@ public class CarScratch {
                 Car.withGasColorPassengers(6, "Red", "Ender", "Hyrum", "Locke", "Bonzo")
         );
         showAll(cars);
-        showAll(getColoredCars(cars, "Black"));
+        showAll(getCarsByCriterion(cars, new RedCarCriterion()));
 
-        cars.sort(new PassengerCountOrder());
+        showAll(getCarsByCriterion(cars, new GasLevelCarCriterion(6)));
+
+     //   cars.sort(new PassengerCountOrder());
 
         showAll(cars);
     }
