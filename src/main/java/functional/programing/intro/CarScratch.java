@@ -43,6 +43,22 @@ public class CarScratch {
     }
 
 
+    public static List<Car> getCarsByGasLevel(Iterable<Car> in,int gasLevel) {
+
+        List<Car> out = new ArrayList<>();
+
+        for (Car car : in) {
+
+            if (car.getGasLevel() >= gasLevel)
+                out.add(car);
+        }
+
+        return out;
+
+    }
+
+
+
     public static void main(String[] args) {
         List<Car> cars = Arrays.asList(
                 Car.withGasColorPassengers(6, "Red", "Fred", "Jim", "Sheila"),
