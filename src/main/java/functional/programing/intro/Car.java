@@ -52,7 +52,22 @@ public class Car {
                 + (trunkContents != null ? ", trunkContents=" + trunkContents : " no trunk") + '}';
     }
 
-    static class RedCarCriterion implements CarCriterion{
+
+    // It's better to return the abstraction, not the concrete class
+    public static CarCriterion getRedCarCriterion() {
+        //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
+        return RED_CAR_CRITERION; //singleton pattern
+    }
+
+    /*
+    public static RedCarCriterion getRedCarCriterion() {
+      //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
+        return RED_CAR_CRITERION; //singleton pattern
+    }*/
+
+    public static final RedCarCriterion RED_CAR_CRITERION = new RedCarCriterion();
+
+    static class RedCarCriterion implements CarCriterion {
 
         @Override
         public boolean test(Car c) {
@@ -63,7 +78,7 @@ public class Car {
     static class GasLevelCarCriterion implements CarCriterion {
         private final int threshold;
 
-        public GasLevelCarCriterion(int threshold){
+        public GasLevelCarCriterion(int threshold) {
             this.threshold = threshold;
         }
 
