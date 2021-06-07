@@ -2,7 +2,15 @@ package functional.programing.intro;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+
+class PassengerCountOrder implements Comparator<Car> {
+    @Override
+    public int compare(Car o1, Car o2) {
+        return o1.getPassengers().size() - o2.getPassengers().size();
+    }
+}
 
 public class CarScratch {
 
@@ -28,7 +36,7 @@ public class CarScratch {
     }
 
 
-    public static List<Car> getColoredCars(Iterable<Car> in,String color) {
+    public static List<Car> getColoredCars(Iterable<Car> in, String color) {
 
         List<Car> out = new ArrayList<>();
 
@@ -43,7 +51,7 @@ public class CarScratch {
     }
 
 
-    public static List<Car> getCarsByGasLevel(Iterable<Car> in,int gasLevel) {
+    public static List<Car> getCarsByGasLevel(Iterable<Car> in, int gasLevel) {
 
         List<Car> out = new ArrayList<>();
 
@@ -58,7 +66,6 @@ public class CarScratch {
     }
 
 
-
     public static void main(String[] args) {
         List<Car> cars = Arrays.asList(
                 Car.withGasColorPassengers(6, "Red", "Fred", "Jim", "Sheila"),
@@ -68,7 +75,10 @@ public class CarScratch {
                 Car.withGasColorPassengers(6, "Red", "Ender", "Hyrum", "Locke", "Bonzo")
         );
         showAll(cars);
-        showAll(getRedCars(cars));
-        showAll(getColoredCars(cars,"Black"));
+        showAll(getColoredCars(cars, "Black"));
+
+        cars.sort(new PassengerCountOrder());
+
+        showAll(cars);
     }
 }
