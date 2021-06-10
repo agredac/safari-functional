@@ -53,6 +53,13 @@ public class Car {
                 + (trunkContents != null ? ", trunkContents=" + trunkContents : " no trunk") + '}';
     }
 
+    /**
+     * 2. Second option to given context to lambda expression:  By Return type
+     *
+     */
+    public static CarCriterion getFourPassengerCriterion(){
+        return c-> c.passengers.size() ==4;
+    }
 
     // It's better to return the abstraction, not the concrete class
     public static CarCriterion getRedCarCriterion() {
@@ -62,57 +69,10 @@ public class Car {
 
 
     /**
-     * better approach to lambda expression
+     * 1. First option to given context to lambda expression:  By Assign
+     *
      */
     private static final CarCriterion RED_CAR_CRITERION = c ->  c.color.equals("Red");
-   // private static final CarCriterion RED_CAR_CRITERION = (Car c) ->  c.color.equals("Red");
-
-
-//    private static final CarCriterion RED_CAR_CRITERION = (c) -> {
-//        return c.color.equals("Red");
-//    };
-
-//    private static final CarCriterion RED_CAR_CRITERION =/* new  CarCriterion() {/*
-//     //   @Override
-//       /* public boolean test*/(/*Car*/c) ->{
-//            return c.color.equals("Red");
-//        }
-//   /* }*/;
-
-
-//    private static final CarCriterion RED_CAR_CRITERION = new  CarCriterion() {
-//        @Override
-//        public boolean test(Car c) {
-//            return c.color.equals("Red");
-//        }
-//    };
-
-
-//    private static final CarCriterion RED_CAR_CRITERION = new /*RedCarCriterion();
-//
-//    private static class RedCarCriterion implements*/ CarCriterion() {
-//
-//        @Override
-//        public boolean test(Car c) {
-//            return c.color.equals("Red");
-//        }
-//    };
-
-
-    /*
-    public static RedCarCriterion getRedCarCriterion() {
-      //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
-        return RED_CAR_CRITERION; //singleton pattern
-    }*/
-
-//    public static final RedCarCriterion RED_CAR_CRITERION = new RedCarCriterion();
-//
-//    // It's better to return the abstraction, not the concrete class
-//    public static CarCriterion getRedCarCriterion() {
-//        //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
-//        return RED_CAR_CRITERION; //singleton pattern
-//    }
-//
 
     public static CarCriterion getGasLevelCarCriterion(int threshold) {
         return new GasLevelCarCriterion(threshold);
@@ -136,58 +96,11 @@ public class Car {
         return gasComparator;
     }
 
-
-
     /**
      * Creating lambda block
      */
-    private static final Comparator<Car> gasComparator =
-            (o1, o2) -> o1.gasLevel - o2.gasLevel;
+    private static final Comparator<Car> gasComparator = (o1, o2) -> o1.gasLevel - o2.gasLevel;
 
-
-
-
-    /**
-     * Final  3. Change to lambda
-     */
-
-//    private static final Comparator<Car> gasComparator =
-//            (Car o1, Car o2) -> {
-//        return o1.gasLevel - o2.gasLevel;
-//    };
-
-
-    /**
-     * Final  3 Optional. Change to lambda with type parameter (Car).
-     * it works because the types are getting by context "Comparator<Car>"
-     */
-//    private static final Comparator<Car> gasComparator = ( o1,  o2) -> {
-//        return o1.gasLevel - o2.gasLevel;
-//    };
-
-
-    /**
-     * Step  2. Change to anonymous class
-     */
-//    private static final Comparator<Car> gasComparator = new  Comparator<Car>(){
-//        @Override
-//        public int compare(Car o1, Car o2) {
-//            return o1.gasLevel - o2.gasLevel;
-//        }
-//    };
-
-
-    /**
-     *  Step 1. Normal assign
-     */
-//    private static final Comparator<Car> gasComparator = new CarGasComparator();
-//
-//    private static class CarGasComparator implements Comparator<Car>{
-//        @Override
-//        public int compare(Car o1, Car o2) {
-//            return o1.gasLevel - o2.gasLevel;
-//        }
-//    }
 
 
 }

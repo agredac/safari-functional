@@ -55,5 +55,18 @@ public class CarScratch {
      //   cars.sort(new PassengerCountOrder());
         cars.sort(Car.getGasComparator());
         showAll(cars);
+
+        /**
+         * 3. Third option to given context to lambda expression:  By argument
+         *
+         */
+        showAll(getCarsByCriterion(cars, c -> c.getPassengers().size()==2));
+
+        /**
+         * using lambda expression as Return Expresion (  2. Second option)
+         */
+        showAll(getCarsByCriterion(cars, Car.getFourPassengerCriterion()));
+
+
     }
 }
