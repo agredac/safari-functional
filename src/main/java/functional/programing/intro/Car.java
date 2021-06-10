@@ -54,23 +54,6 @@ public class Car {
 
 
 
-    /*
-    public static RedCarCriterion getRedCarCriterion() {
-      //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
-        return RED_CAR_CRITERION; //singleton pattern
-    }*/
-
-//    public static final RedCarCriterion RED_CAR_CRITERION = new RedCarCriterion();
-//
-//    // It's better to return the abstraction, not the concrete class
-//    public static CarCriterion getRedCarCriterion() {
-//        //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
-//        return RED_CAR_CRITERION; //singleton pattern
-//    }
-//
-
-
-
 
     // It's better to return the abstraction, not the concrete class
     public static CarCriterion getRedCarCriterion() {
@@ -109,6 +92,22 @@ public class Car {
 //            return c.color.equals("Red");
 //        }
 //    };
+
+
+    /*
+    public static RedCarCriterion getRedCarCriterion() {
+      //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
+        return RED_CAR_CRITERION; //singleton pattern
+    }*/
+
+//    public static final RedCarCriterion RED_CAR_CRITERION = new RedCarCriterion();
+//
+//    // It's better to return the abstraction, not the concrete class
+//    public static CarCriterion getRedCarCriterion() {
+//        //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
+//        return RED_CAR_CRITERION; //singleton pattern
+//    }
+//
 
     public static CarCriterion getGasLevelCarCriterion(int threshold){
         return new GasLevelCarCriterion(threshold);
