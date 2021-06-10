@@ -2,6 +2,7 @@ package functional.programing.intro;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Car {
@@ -53,8 +54,6 @@ public class Car {
     }
 
 
-
-
     // It's better to return the abstraction, not the concrete class
     public static CarCriterion getRedCarCriterion() {
         //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
@@ -62,7 +61,7 @@ public class Car {
     }
 
 
-    private static final CarCriterion RED_CAR_CRITERION=(c) ->{
+    private static final CarCriterion RED_CAR_CRITERION = (c) -> {
         return c.color.equals("Red");
     };
 
@@ -72,7 +71,6 @@ public class Car {
 //            return c.color.equals("Red");
 //        }
 //   /* }*/;
-
 
 
 //    private static final CarCriterion RED_CAR_CRITERION = new  CarCriterion() {
@@ -109,11 +107,11 @@ public class Car {
 //    }
 //
 
-    public static CarCriterion getGasLevelCarCriterion(int threshold){
+    public static CarCriterion getGasLevelCarCriterion(int threshold) {
         return new GasLevelCarCriterion(threshold);
     }
 
-     private static class GasLevelCarCriterion implements CarCriterion {
+    private static class GasLevelCarCriterion implements CarCriterion {
         private final int threshold;
 
         public GasLevelCarCriterion(int threshold) {
@@ -125,4 +123,55 @@ public class Car {
             return c.gasLevel >= threshold;
         }
     }
+
+
+    public static Comparator<Car> getGasComparator() {
+        return gasComparator;
+    }
+
+
+
+
+    /**
+     * Final  3. Change to lambda
+     */
+
+    private static final Comparator<Car> gasComparator = (Car o1, Car o2) -> {
+        return o1.gasLevel - o2.gasLevel;
+    };
+
+
+    /**
+     * Final  3 Optional. Change to lambda with type parameter (Car).
+     * it works because the types are getting by context "Comparator<Car>"
+     */
+//    private static final Comparator<Car> gasComparator = ( o1,  o2) -> {
+//        return o1.gasLevel - o2.gasLevel;
+//    };
+
+
+    /**
+     * Step  2. Change to anonymous class
+     */
+//    private static final Comparator<Car> gasComparator = new  Comparator<Car>(){
+//        @Override
+//        public int compare(Car o1, Car o2) {
+//            return o1.gasLevel - o2.gasLevel;
+//        }
+//    };
+
+
+    /**
+     *  Step 1. Normal assign
+     */
+//    private static final Comparator<Car> gasComparator = new CarGasComparator();
+//
+//    private static class CarGasComparator implements Comparator<Car>{
+//        @Override
+//        public int compare(Car o1, Car o2) {
+//            return o1.gasLevel - o2.gasLevel;
+//        }
+//    }
+
+
 }

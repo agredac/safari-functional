@@ -53,7 +53,7 @@ public class CarScratch {
         showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(6)));
 
      //   cars.sort(new PassengerCountOrder());
-
+        cars.sort(Car.getGasComparator());
         showAll(cars);
     }
 }
