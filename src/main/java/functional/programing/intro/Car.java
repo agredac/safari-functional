@@ -79,12 +79,25 @@ public class Car {
     }
 
 
-    private static final CarCriterion RED_CAR_CRITERION = new  CarCriterion() {
-        @Override
-        public boolean test(Car c) {
-            return c.color.equals("Red");
-        }
+    private static final CarCriterion RED_CAR_CRITERION=(c) ->{
+        return c.color.equals("Red");
     };
+
+//    private static final CarCriterion RED_CAR_CRITERION =/* new  CarCriterion() {/*
+//     //   @Override
+//       /* public boolean test*/(/*Car*/c) ->{
+//            return c.color.equals("Red");
+//        }
+//   /* }*/;
+
+
+
+//    private static final CarCriterion RED_CAR_CRITERION = new  CarCriterion() {
+//        @Override
+//        public boolean test(Car c) {
+//            return c.color.equals("Red");
+//        }
+//    };
 
 
 //    private static final CarCriterion RED_CAR_CRITERION = new /*RedCarCriterion();
