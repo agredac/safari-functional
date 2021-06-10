@@ -61,9 +61,16 @@ public class Car {
     }
 
 
-    private static final CarCriterion RED_CAR_CRITERION = (c) -> {
-        return c.color.equals("Red");
-    };
+    /**
+     * better approach to lambda expression
+     */
+    private static final CarCriterion RED_CAR_CRITERION = c ->  c.color.equals("Red");
+   // private static final CarCriterion RED_CAR_CRITERION = (Car c) ->  c.color.equals("Red");
+
+
+//    private static final CarCriterion RED_CAR_CRITERION = (c) -> {
+//        return c.color.equals("Red");
+//    };
 
 //    private static final CarCriterion RED_CAR_CRITERION =/* new  CarCriterion() {/*
 //     //   @Override
@@ -131,14 +138,23 @@ public class Car {
 
 
 
+    /**
+     * Creating lambda block
+     */
+    private static final Comparator<Car> gasComparator =
+            (o1, o2) -> o1.gasLevel - o2.gasLevel;
+
+
+
 
     /**
      * Final  3. Change to lambda
      */
 
-    private static final Comparator<Car> gasComparator = (Car o1, Car o2) -> {
-        return o1.gasLevel - o2.gasLevel;
-    };
+//    private static final Comparator<Car> gasComparator =
+//            (Car o1, Car o2) -> {
+//        return o1.gasLevel - o2.gasLevel;
+//    };
 
 
     /**
