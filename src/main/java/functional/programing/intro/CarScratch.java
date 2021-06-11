@@ -11,17 +11,17 @@ class PassengerCountOrder implements Comparator<Car> {
         return o1.getPassengers().size() - o2.getPassengers().size();
     }
 }
-
-interface CarCriterion{
-    boolean test(Car c);
+@FunctionalInterface
+interface Criterion<E>{
+    boolean test(E c);
 }
 
 
 
 public class CarScratch {
 
-    public static <E> void showAll(List<Car> lc) {
-        for (Car c : lc) {
+    public static <E> void showAll(List<E> lc) {
+        for (E c : lc) {
             System.out.println(c);
         }
         System.out.println("-------------------------------------");
@@ -29,11 +29,11 @@ public class CarScratch {
 
 
 
-    public static List<Car> getCarsByCriterion(Iterable<Car> in, CarCriterion criterion) {
-        List<Car> out = new ArrayList<>();
-        for (Car car : in) {
-            if (criterion.test(car))
-                out.add(car);
+    public static <E> List<E> getCarsByCriterion(Iterable<E> in, Criterion<E> criterion) {
+        List<E> out = new ArrayList<>();
+        for (E e : in) {
+            if (criterion.test(e))
+                out.add(e);
         }
         return out;
     }

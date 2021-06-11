@@ -57,12 +57,12 @@ public class Car {
      * 2. Second option to given context to lambda expression:  By Return type
      *
      */
-    public static CarCriterion getFourPassengerCriterion(){
+    public static Criterion<Car> getFourPassengerCriterion(){
         return c-> c.passengers.size() ==4;
     }
 
     // It's better to return the abstraction, not the concrete class
-    public static CarCriterion getRedCarCriterion() {
+    public static Criterion<Car> getRedCarCriterion() {
         //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
         return RED_CAR_CRITERION; //singleton pattern
     }
@@ -72,16 +72,16 @@ public class Car {
      * 1. First option to given context to lambda expression:  By Assign
      *
      */
-    private static final CarCriterion RED_CAR_CRITERION = c ->  c.color.equals("Red");
+    private static final Criterion<Car> RED_CAR_CRITERION = c ->  c.color.equals("Red");
 
-    public static CarCriterion getGasLevelCarCriterion(int threshold) {
-        return new GasLevelCarCriterion(threshold);
+    public static Criterion<Car> getGasLevelCarCriterion(int threshold) {
+        return new GasLevelCriterion(threshold);
     }
 
-    private static class GasLevelCarCriterion implements CarCriterion {
+    private static class GasLevelCriterion implements Criterion<Car> {
         private final int threshold;
 
-        public GasLevelCarCriterion(int threshold) {
+        public GasLevelCriterion(int threshold) {
             this.threshold = threshold;
         }
 
