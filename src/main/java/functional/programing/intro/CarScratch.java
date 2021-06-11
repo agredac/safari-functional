@@ -1,5 +1,6 @@
 package functional.programing.intro;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -67,6 +68,15 @@ public class CarScratch {
          */
         showAll(getCarsByCriterion(cars, Car.getFourPassengerCriterion()));
 
+        List<String> colors = Arrays.asList("LightCoral", "pink", "Orange","Gold");
+        showAll(getCarsByCriterion(colors, str->str.length()>4));
+        showAll(getCarsByCriterion(colors, str-> Character.isUpperCase(str.charAt(0))));
+
+        LocalDate today = LocalDate.now();
+
+        List<LocalDate> dates = Arrays.asList(today, today.plusDays(1), today.plusDays(7),today.minusDays(1));
+
+        showAll(getCarsByCriterion(dates, ld->ld.isAfter(today)));
 
     }
 }
