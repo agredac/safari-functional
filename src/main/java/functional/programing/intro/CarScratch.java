@@ -78,5 +78,9 @@ public class CarScratch {
 
         showAll(getCarsByCriterion(dates, ld->ld.isAfter(today)));
 
+
+
+        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(6)));
+        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(3)));
     }
 }

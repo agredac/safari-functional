@@ -74,22 +74,27 @@ public class Car {
      */
     private static final Criterion<Car> RED_CAR_CRITERION = c ->  c.color.equals("Red");
 
-    public static Criterion<Car> getGasLevelCarCriterion(int threshold) {
-        return new GasLevelCriterion(threshold);
+
+    public static Criterion<Car> getGasLevelCarCriterion(int threshold){
+      return   c-> c.gasLevel >=threshold;
     }
 
-    private static class GasLevelCriterion implements Criterion<Car> {
-        private final int threshold;
-
-        public GasLevelCriterion(int threshold) {
-            this.threshold = threshold;
-        }
-
-        @Override
-        public boolean test(Car c) {
-            return c.gasLevel >= threshold;
-        }
-    }
+//    public static Criterion<Car> getGasLevelCarCriterion(int threshold) {
+//        return new GasLevelCriterion(threshold);
+//    }
+//
+//    private static class GasLevelCriterion implements Criterion<Car> {
+//        private final int threshold;
+//
+//        public GasLevelCriterion(int threshold) {
+//            this.threshold = threshold;
+//        }
+//
+//        @Override
+//        public boolean test(Car c) {
+//            return c.gasLevel >= threshold;
+//        }
+//    }
 
 
     public static Comparator<Car> getGasComparator() {
