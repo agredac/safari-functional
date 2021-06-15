@@ -1,6 +1,7 @@
 package functional.programing.intro;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Car {
 
@@ -51,7 +52,7 @@ public class Car {
     }
 
 
-    public static Criterion<Car> getColorCriterion(String... colors) {
+    public static Predicate<Car> getColorCriterion(String... colors) {
 
         Set<String> colorSet = new HashSet<>(Arrays.asList(colors));
 
@@ -61,24 +62,24 @@ public class Car {
     /**
      * 2. Second option to given context to lambda expression:  By Return type
      */
-    public static Criterion<Car> getFourPassengerCriterion() {
+    public static Predicate<Car> getFourPassengerCriterion() {
         return c -> c.passengers.size() == 4;
     }
 
     // It's better to return the abstraction, not the concrete class
-    public static Criterion<Car> getRedCarCriterion() {
+    public static Predicate<Car> getRedCarCriterion() {
         //  return new RedCarCriterion(); Return a new object each time is called (bad solution)
-        return RED_CAR_CRITERION; //singleton pattern
+        return RED_CAR_PREDICATE; //singleton pattern
     }
 
 
     /**
      * 1. First option to given context to lambda expression:  By Assign
      */
-    private static final Criterion<Car> RED_CAR_CRITERION = c -> c.color.equals("Red");
+    private static final Predicate<Car> RED_CAR_PREDICATE = c -> c.color.equals("Red");
 
 
-    public static Criterion<Car> getGasLevelCarCriterion(int threshold) {
+    public static Predicate<Car> getGasLevelCarCriterion(int threshold) {
         return c -> c.gasLevel >= threshold;
     }
 

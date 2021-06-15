@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 class PassengerCountOrder implements Comparator<Car> {
     @Override
@@ -30,10 +31,10 @@ public class CarScratch {
 
 
 
-    public static <E> List<E> getCarsByCriterion(Iterable<E> in, Criterion<E> criterion) {
+    public static <E> List<E> getCarsByCriterion(Iterable<E> in, Predicate<E> predicate) {
         List<E> out = new ArrayList<>();
         for (E e : in) {
-            if (criterion.test(e))
+            if (predicate.test(e))
                 out.add(e);
         }
         return out;
@@ -87,17 +88,17 @@ public class CarScratch {
 //        showAll(getCarsByCriterion(cars,  Car.getColorCriterion("Red","Black")));
 
 
-        Criterion<Car> gasLevel7 =  Car.getGasLevelCarCriterion(7);
-        Criterion<Car> notGasLevel7 = gasLevel7.negate();
+        Predicate<Car> gasLevel7 =  Car.getGasLevelCarCriterion(7);
+        Predicate<Car> notGasLevel7 = gasLevel7.negate();
         showAll(getCarsByCriterion(cars, notGasLevel7));
 
-        Criterion<Car> gasLevel6 =  Car.getGasLevelCarCriterion(6);
-        Criterion<Car> getByColors = Car.getColorCriterion("Red","Black");
-        Criterion<Car> andExample = gasLevel6.and(getByColors);
+        Predicate<Car> gasLevel6 =  Car.getGasLevelCarCriterion(6);
+        Predicate<Car> getByColors = Car.getColorCriterion("Red","Black");
+        Predicate<Car> andExample = gasLevel6.and(getByColors);
         showAll(getCarsByCriterion(cars, andExample));
 
 
-        Criterion<Car> orExample = getByColors.or(gasLevel6);
+        Predicate<Car> orExample = getByColors.or(gasLevel6);
         showAll(getCarsByCriterion(cars, orExample));
 
 

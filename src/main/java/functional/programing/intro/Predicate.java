@@ -1,20 +1,20 @@
 package functional.programing.intro;
 
-public interface Criterion<E> {
+public interface Predicate<E> {
 
     boolean test(E c);
 
-    default  Criterion<E> negate() {
+    default Predicate<E> negate() {
         return x -> !test(x);
     }
 
-    default  Criterion<E> and(Criterion<E> second) {
+    default Predicate<E> and(Predicate<E> second) {
 
         return x -> this.test(x) && second.test(x);
 
     }
 
-    default Criterion<E> or(Criterion<E> second) {
+    default Predicate<E> or(Predicate<E> second) {
 
         return x -> this.test(x) || second.test(x);
 
