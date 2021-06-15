@@ -40,6 +40,23 @@ public class CarScratch {
     }
 
 
+    public static <E> Criterion<E> negate(Criterion<E> crit){
+        return x -> !crit.test(x);
+    }
+
+    public static <E> Criterion<E> and(Criterion<E> first, Criterion<E> second){
+
+       return x-> first.test(x) && second.test(x);
+
+    }
+
+    public static <E> Criterion<E> or(Criterion<E> first, Criterion<E> second){
+
+        return x-> first.test(x) || second.test(x);
+
+    }
+
+
     public static void main(String[] args) {
         List<Car> cars = Arrays.asList(
                 Car.withGasColorPassengers(6, "Red", "Fred", "Jim", "Sheila"),
@@ -80,7 +97,21 @@ public class CarScratch {
 
 
 
-        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(6)));
-        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(3)));
+//        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(6)));
+//        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(3)));
+//        showAll(getCarsByCriterion(cars,  Car.getColorCriterion("Red","Black")));
+
+        Criterion<Car> gasLevel7 =  Car.getGasLevelCarCriterion(7);
+        showAll(getCarsByCriterion(cars, gasLevel7));
+        Criterion<Car> notGasLevel7 = CarScratch.negate(gasLevel7);
+        showAll(getCarsByCriterion(cars, notGasLevel7));
+
+
+        Criterion<Car> gasLevel6 =  Car.getGasLevelCarCriterion(6);
+        Criterion<Car> getByColors = Car.getColorCriterion("Red","Black");
+        Criterion<Car> andExample = CarScratch.and(gasLevel6,getByColors);
+
+        showAll(getCarsByCriterion(cars, andExample));
+
     }
 }

@@ -1,9 +1,6 @@
 package functional.programing.intro;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Car {
 
@@ -53,12 +50,19 @@ public class Car {
                 + (trunkContents != null ? ", trunkContents=" + trunkContents : " no trunk") + '}';
     }
 
+
+    public static Criterion<Car> getColorCriterion(String... colors) {
+
+        Set<String> colorSet = new HashSet<>(Arrays.asList(colors));
+
+        return c -> colorSet.contains(c.color);
+    }
+
     /**
      * 2. Second option to given context to lambda expression:  By Return type
-     *
      */
-    public static Criterion<Car> getFourPassengerCriterion(){
-        return c-> c.passengers.size() ==4;
+    public static Criterion<Car> getFourPassengerCriterion() {
+        return c -> c.passengers.size() == 4;
     }
 
     // It's better to return the abstraction, not the concrete class
@@ -70,13 +74,12 @@ public class Car {
 
     /**
      * 1. First option to given context to lambda expression:  By Assign
-     *
      */
-    private static final Criterion<Car> RED_CAR_CRITERION = c ->  c.color.equals("Red");
+    private static final Criterion<Car> RED_CAR_CRITERION = c -> c.color.equals("Red");
 
 
-    public static Criterion<Car> getGasLevelCarCriterion(int threshold){
-      return   c-> c.gasLevel >=threshold;
+    public static Criterion<Car> getGasLevelCarCriterion(int threshold) {
+        return c -> c.gasLevel >= threshold;
     }
 
 //    public static Criterion<Car> getGasLevelCarCriterion(int threshold) {
@@ -105,7 +108,6 @@ public class Car {
      * Creating lambda block
      */
     private static final Comparator<Car> gasComparator = (o1, o2) -> o1.gasLevel - o2.gasLevel;
-
 
 
 }
