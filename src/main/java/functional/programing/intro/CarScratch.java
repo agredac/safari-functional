@@ -1,11 +1,13 @@
 package functional.programing.intro;
 
+import java.lang.annotation.Target;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
 
 class PassengerCountOrder implements Comparator<Car> {
     @Override
@@ -22,13 +24,22 @@ class PassengerCountOrder implements Comparator<Car> {
 
 public class CarScratch {
 
+
+    public static <E> Predicate<E> comparesGrater(ToIntFunction<E> toInt) {
+
+        return x -> toInt.applyAsInt(x)<0;
+    }
+
+    public static <E> ToIntFunction<E> compareWithThis(E target, Comparator<E> comp) {
+        return x -> comp.compare(target, x);
+    }
+
     public static <E> void showAll(List<E> lc) {
         for (E c : lc) {
             System.out.println(c);
         }
         System.out.println("-------------------------------------");
     }
-
 
 
     public static <E> List<E> getCarsByCriterion(Iterable<E> in, Predicate<E> predicate) {
@@ -41,8 +52,6 @@ public class CarScratch {
     }
 
 
-
-
     public static void main(String[] args) {
         List<Car> cars = Arrays.asList(
                 Car.withGasColorPassengers(6, "Red", "Fred", "Jim", "Sheila"),
@@ -53,10 +62,10 @@ public class CarScratch {
         );
         showAll(cars);
 
-        showAll(getCarsByCriterion(cars,  Car.getRedCarCriterion()));
-        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(6)));
+        showAll(getCarsByCriterion(cars, Car.getRedCarCriterion()));
+        showAll(getCarsByCriterion(cars, Car.getGasLevelCarCriterion(6)));
 
-     //   cars.sort(new PassengerCountOrder());
+        //   cars.sort(new PassengerCountOrder());
         cars.sort(Car.getGasComparator());
         showAll(cars);
 
@@ -64,23 +73,22 @@ public class CarScratch {
          * 3. Third option to given context to lambda expression:  By argument
          *
          */
-        showAll(getCarsByCriterion(cars, c -> c.getPassengers().size()==2));
+        showAll(getCarsByCriterion(cars, c -> c.getPassengers().size() == 2));
 
         /**
          * using lambda expression as Return Expresion (  2. Second option)
          */
         showAll(getCarsByCriterion(cars, Car.getFourPassengerCriterion()));
 
-        List<String> colors = Arrays.asList("LightCoral", "pink", "Orange","Gold");
-        showAll(getCarsByCriterion(colors, str->str.length()>4));
-        showAll(getCarsByCriterion(colors, str-> Character.isUpperCase(str.charAt(0))));
+        List<String> colors = Arrays.asList("LightCoral", "pink", "Orange", "Gold");
+        showAll(getCarsByCriterion(colors, str -> str.length() > 4));
+        showAll(getCarsByCriterion(colors, str -> Character.isUpperCase(str.charAt(0))));
 
         LocalDate today = LocalDate.now();
 
-        List<LocalDate> dates = Arrays.asList(today, today.plusDays(1), today.plusDays(7),today.minusDays(1));
+        List<LocalDate> dates = Arrays.asList(today, today.plusDays(1), today.plusDays(7), today.minusDays(1));
 
-        showAll(getCarsByCriterion(dates, ld->ld.isAfter(today)));
-
+        showAll(getCarsByCriterion(dates, ld -> ld.isAfter(today)));
 
 
 //        showAll(getCarsByCriterion(cars,  Car.getGasLevelCarCriterion(6)));
@@ -88,12 +96,12 @@ public class CarScratch {
 //        showAll(getCarsByCriterion(cars,  Car.getColorCriterion("Red","Black")));
 
 
-        Predicate<Car> gasLevel7 =  Car.getGasLevelCarCriterion(7);
+        Predicate<Car> gasLevel7 = Car.getGasLevelCarCriterion(7);
         Predicate<Car> notGasLevel7 = gasLevel7.negate();
         showAll(getCarsByCriterion(cars, notGasLevel7));
 
-        Predicate<Car> gasLevel6 =  Car.getGasLevelCarCriterion(6);
-        Predicate<Car> getByColors = Car.getColorCriterion("Red","Black");
+        Predicate<Car> gasLevel6 = Car.getGasLevelCarCriterion(6);
+        Predicate<Car> getByColors = Car.getColorCriterion("Red", "Black");
         Predicate<Car> andExample = gasLevel6.and(getByColors);
         showAll(getCarsByCriterion(cars, andExample));
 
@@ -102,21 +110,22 @@ public class CarScratch {
         showAll(getCarsByCriterion(cars, orExample));
 
 
-        /**
-         * Before using instance methods in Criterion Interface
-         */
-//        Criterion<Car> gasLevel7 =  Car.getGasLevelCarCriterion(7);
-//        showAll(getCarsByCriterion(cars, gasLevel7));
-//        Criterion<Car> notGasLevel7 = Criterion.negate(gasLevel7);
-//        showAll(getCarsByCriterion(cars, notGasLevel7));
-//
-//
-//        Criterion<Car> gasLevel6 =  Car.getGasLevelCarCriterion(6);
-//        Criterion<Car> getByColors = Car.getColorCriterion("Red","Black");
-//        Criterion<Car> andExample = Criterion.and(gasLevel6,getByColors);
-//
-//        showAll(getCarsByCriterion(cars, andExample));
-//        Criterion<Car> orExample = Criterion.or(gasLevel6,getByColors);
-//        showAll(getCarsByCriterion(cars, orExample));
+        Car albert = Car.withGasColorPassengers(5, "Blue");
+
+        ToIntFunction<Car> compareWithAlBert = compareWithThis(albert, Car.getGasComparator());
+        for (Car c : cars) {
+            System.out.println("comparing " + c + " with albert gives " +
+                    compareWithAlBert.applyAsInt(c));
+        }
+
+        Predicate<Car> comparesGraterWithAlbert = comparesGrater(compareWithAlBert);
+
+        for (Car c : cars) {
+            System.out.println("comparing " + c + " with albert is " +
+                    comparesGraterWithAlbert.test(c) + " grater");
+        }
+
+        showAll(getCarsByCriterion(cars, comparesGrater(compareWithAlBert)));
+
     }
 }

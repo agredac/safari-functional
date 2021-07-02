@@ -2,6 +2,7 @@ package functional.programing.intro;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
 
 public class Car {
 
@@ -99,6 +100,8 @@ public class Car {
 //            return c.gasLevel >= threshold;
 //        }
 //    }
+
+
 
 
     public static Comparator<Car> getGasComparator() {
