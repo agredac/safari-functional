@@ -30,6 +30,11 @@ public class Car {
         return self;
     }
 
+    public Car addGas(int g){
+
+        return new Car(gasLevel+g,color,passengers,trunkContents);
+    }
+
     public int getGasLevel() {
         return gasLevel;
     }
