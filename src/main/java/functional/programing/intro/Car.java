@@ -30,9 +30,9 @@ public class Car {
         return self;
     }
 
-    public Car addGas(int g){
+    public Car addGas(int g) {
 
-        return new Car(gasLevel+g,color,passengers,trunkContents);
+        return new Car(gasLevel + g, color, passengers, trunkContents);
     }
 
     public int getGasLevel() {
@@ -49,6 +49,10 @@ public class Car {
 
     public List<String> getTrunkContents() {
         return trunkContents;
+    }
+
+    public Optional<List<String>> getTrunkContentsOpt() {
+        return Optional.ofNullable(trunkContents);
     }
 
     @Override
@@ -105,8 +109,6 @@ public class Car {
 //            return c.gasLevel >= threshold;
 //        }
 //    }
-
-
 
 
     public static Comparator<Car> getGasComparator() {
