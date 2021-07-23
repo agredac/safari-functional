@@ -134,7 +134,8 @@ public class SuperIterable<E> implements Iterable<E> {
 
         System.out.println("-------------FLAT MAP 1----------------");
 
-        carIter.flatMap(car -> new SuperIterable<>(car.getPassengers())).forEach(System.out::println);
+        SuperIterable<String> strings1 = carIter.flatMap(car -> new SuperIterable<>(car.getPassengers()));
+        strings1.forEach(s -> System.out.println(s));
 
         System.out.println("-------------FLAT MAP 2----------------");
         carIter
